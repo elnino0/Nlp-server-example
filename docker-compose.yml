@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+    app:
+      environment:
+        - FLASK_APP=main.py
+      build: ./pythonProject
+      ports:
+        - "5000:5000"
+      volumes:
+        - ./pythonProject:/pythonProject
+      networks:
+        - gateway
+
+    catchserver:
+      environment:
+        - USER_SERVICE_URL=http://app:5000/analyze
+        - REDIS_PASS=1234
+        - REDIS_HOST=redis
+        - redisPort=6379
+      build: .
+      ports:
+        - "3000:3000"
+      volumes:
+        - .:/src
+      networks:
+        - gateway
+
+    redis:
+      image: redis:6.2-alpine
+      restart: always
+      ports:
+        - '6379:6379'
+      command: redis-server --save 20 1 --loglevel warning --requirepass 1234
+      volumes: 
+        - cache:/data
+      networks:
+        - gateway
+volumes:
+  cache:
+    driver: local
+networks:
+  gateway: {}
