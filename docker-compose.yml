@@ -13,7 +13,7 @@ services:
 
     catchserver:
       environment:
-        - USER_SERVICE_URL=http://app:5000/analyze
+        - BASE_SERVICE_URL=http://app:5000
         - REDIS_PASS=1234
         - REDIS_HOST=redis
         - redisPort=6379

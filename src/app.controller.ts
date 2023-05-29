@@ -1,24 +1,21 @@
-import { Controller, Get, Post,Body, Headers, HttpException} from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Post,Body, Headers, HttpException, Param} from '@nestjs/common';
+import { AppServiceCatch } from './app.service';
 
+
+interface SendDetailsDTO {
+  service: string;
+}
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @Post("analyze")
-  async analyze(@Headers() headers, @Body() message){
-
-    const responseFromAnalyze = await this.appService.postAnalyze(headers, message);
-    console.log("body dddd",responseFromAnalyze)
+  constructor(private readonly appService: AppServiceCatch) {}
+  
+  @Post(":service")
+  async analyze(@Param() params: SendDetailsDTO, @Headers() headers, @Body() message){
+    console.log(params)
+    const responseFromAnalyze = await this.appService.postAnalyze(params.service, headers, message);
     if (responseFromAnalyze.responseStatus == 200){
-      console.log("body",responseFromAnalyze.body)
-      return responseFromAnalyze.body;
+        return responseFromAnalyze.body;
     }else{
       throw new HttpException(responseFromAnalyze.statusText, responseFromAnalyze.responseStatus);
     }

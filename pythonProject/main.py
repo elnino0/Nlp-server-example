@@ -2,10 +2,21 @@ from modules.requestJsonSchema import analyzeJsonSchema, sentimentJsonSchema
 from jsonschema import validate, exceptions
 from modules.nlpProcessing import tokenization, part_of_speach, named_entity_recognition, sentiment_analyze
 from flask import Flask, request, Response
+import json
 
 app = Flask(__name__)
 methods = {"tokenization": tokenization, "partOfSpeach": part_of_speach,
            "namedEntityRecognition": named_entity_recognition}
+
+
+def format_json(data):
+    print(type(data))
+    if not len(data):
+        return {"data": []}
+    if isinstance(data, set):
+        return json.dumps({"data": list(data)})
+    elif isinstance(data, dict) or isinstance(data, list):
+        return json.dumps({"data": data})
 
 
 @app.route('/analyze', methods=['POST'])
@@ -22,7 +33,7 @@ def analyze():
         except Exception as e:
             return Response(response=str(e), status=400)
 
-        response_body = {"data": str(data)}
+        response_body = format_json(data)
         return response_body
     else:
         return Response(response='Content-Type not supported!', status=400)
@@ -42,7 +53,7 @@ def sentiment():
         except Exception as e:
             return Response(response=str(e), status=400)
 
-        response_body = {"data": str(data)}
+        response_body = format_json(data)
         return response_body
     else:
         return Response(response='Content-Type not supported!', status=400)

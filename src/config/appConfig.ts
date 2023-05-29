@@ -11,7 +11,7 @@ function tryIntPrase(str:string){
 }
 
 export default {
-    UserUrl: process.env.USER_SERVICE_URL ?? 'http://127.0.0.1:5000/analyze',
+    baseUrl: process.env.BASE_SERVICE_URL ?? 'http://127.0.0.1:5000',
     redisPass: process.env.REDIS_PASS ?? '1234',
     redisHost: process.env.REDIS_HOST ?? "localhost",
     redisPort:  tryIntPrase(process.env.REDIS_PORT) ?? 6379

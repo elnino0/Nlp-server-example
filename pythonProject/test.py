@@ -1,5 +1,5 @@
 import json
-
+import pytest
 
 def test_analyze_happyflow(app, client):
     quote = """
@@ -41,7 +41,7 @@ def test_sentiment_happyflow(app, client):
     res = client.post('/sentiment', data=json.dumps(req_body), headers={'Content-Type': 'application/json'})
     assert res.status_code == 200
 
-    expected_data = json.loads('{"data":"{\'neg\': 0.055, \'neu\': 0.8, \'pos\': 0.145, \'compound\': 0.8419}"}')
+    expected_data = json.loads('{"data": {"neg": 0.055, "neu": 0.8, "pos": 0.145, "compound": 0.8419}}')
     assert expected_data == json.loads(res.get_data(as_text=True))
 
 
@@ -51,7 +51,7 @@ def test_sentiment_badchars(app, client):
     res = client.post('/sentiment', data=json.dumps(req_body), headers={'Content-Type': 'application/json'})
     assert res.status_code == 200
 
-    expected_data = json.loads('{"data":"{\'neg\': 0.0, \'neu\': 1.0, \'pos\': 0.0, \'compound\': 0.0}"}')
+    expected_data = json.loads('{"data": {"neg": 0.0, "neu": 1.0, "pos": 0.0, "compound": 0.0}}')
     assert expected_data == json.loads(res.get_data(as_text=True))
 
 

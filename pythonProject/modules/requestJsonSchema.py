@@ -14,8 +14,7 @@ analyzeJsonSchema = {
 sentimentJsonSchema = {
     "type": "object",
     "properties": {
-        "text": {"type": "string"},
-        "method": {"type": "string"}
+        "text": {"type": "string"}
     },
     "additionalProperties": False,
     "required": [
