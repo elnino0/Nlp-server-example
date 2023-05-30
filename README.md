@@ -4,7 +4,8 @@ a task by Nrich
 resent update:
   1. nlp server now return json
   2. statement endpoint is now also cover 
-  3. now using of nestjs params feature  
+  3. now using of nestjs params feature
+  4. cache service is now as module in nest infra  
 
 to deploy use docker compose 
 1. docker compose build
