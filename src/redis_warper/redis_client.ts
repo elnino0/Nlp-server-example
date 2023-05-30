@@ -9,7 +9,6 @@ export class redis_client {
     
 
     private constructor() {
-        console.log(config)
         this.client = createClient({socket: {
             host: config.redisHost,
             port: config.redisPort

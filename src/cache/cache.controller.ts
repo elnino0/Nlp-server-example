@@ -1,5 +1,5 @@
 import { Controller, Post,Body, Headers, HttpException, Param} from '@nestjs/common';
-import { AppServiceCatch } from './app.service';
+import { AppServiceCatch } from './cache.service';
 
 
 interface SendDetailsDTO {
@@ -12,7 +12,6 @@ export class AppController {
   
   @Post(":service")
   async analyze(@Param() params: SendDetailsDTO, @Headers() headers, @Body() message){
-    console.log(params)
     const responseFromAnalyze = await this.appService.postAnalyze(params.service, headers, message);
     if (responseFromAnalyze.responseStatus == 200){
         return responseFromAnalyze.body;

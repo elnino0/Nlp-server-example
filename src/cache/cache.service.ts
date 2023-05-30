@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { redis_client } from "./redis_warper/redis_client";
-import endPointurl from "./config/appConfig";
+import { redis_client } from "../redis_warper/redis_client";
+import endPointurl from "../config/appConfig";
 
 @Injectable()
 export class AppServiceCatch {
