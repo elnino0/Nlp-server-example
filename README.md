@@ -1,6 +1,11 @@
 # nrich_exe
 a task by Nrich
 
+resent update:
+  1. nlp server now return json
+  2. statement endpoint is now also cover 
+  3. now using of nestjs params feature  
+
 to deploy use docker compose 
 1. docker compose build
 2. docker compose pull
