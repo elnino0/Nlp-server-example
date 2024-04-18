@@ -1,6 +1,3 @@
-# nrich_exe
-a task by Nrich
-
 resent update:
   1. nlp server now return json
   2. statement endpoint is now also cover 
